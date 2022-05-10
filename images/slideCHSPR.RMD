@@ -413,6 +413,41 @@ Performance of hdPS. @schneeweiss2018automated:
 \includegraphics[width=0.6\linewidth]{hdpsonly.png}
 \end{center}
 
+## ML-hdPS: deal with collinearity
+
+### Kitchen SSink Exposure Model (A ~ C + EC)
+
+\begin{equation}
+\begin{aligned}
+P(A=1|C, EC) &= \frac{1}{1+exp[\alpha_0 + \alpha_1 C_{\text{important}} + \alpha_2 C_{\text{potential confounder}} +  \sum_{i=1}^{2,400} \alpha_i^{'} \textcolor{blue}{\text{EC}_i} ]}\nonumber
+\end{aligned}
+\end{equation}
+
+### Outcome Model for EC selection (Y ~ C + top-500 ECs)
+
+\begin{equation}
+\begin{aligned}
+f(Y|C, EC) &= \alpha_0 + \alpha_1 C_{\text{important}} + \alpha_2 C_{\text{potential confounder}} +  \sum_{i=1}^{500} \alpha_i^{'} \textcolor{blue}{\text{EC}_i} \nonumber
+\end{aligned}
+\end{equation}
+
+## ML-hdPS: deal with collinearity
+
+### hdPS Exposure Model (A ~ C + top-ranked EC)
+
+\begin{equation}
+\begin{aligned}
+P(A=1|C, EC) &= \frac{1}{1+exp[\alpha_0 + \alpha_1 C_{\text{important}} + \alpha_2 C_{\text{potential confounder}} +  \sum_{i=1}^{\text{top 500}} \alpha_i^{'} \textcolor{blue}{\text{EC}_i} ]}\nonumber
+\end{aligned}
+\end{equation}
+
+### Outcome Model for EC selection (Y ~ C + ECs)
+
+\begin{equation}
+\begin{aligned}
+f(Y|C, EC) &= {\alpha_0 + \alpha_1 C_{\text{important}} + \alpha_2 C_{\text{potential confounder}} +  \sum_{i=1}^{2,400} \alpha_i^{'} \textcolor{blue}{\text{EC}_i} }\nonumber
+\end{aligned}
+\end{equation}
 
 ## ML-hdPS: deal with collinearity
 

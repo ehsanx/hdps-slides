@@ -4,7 +4,7 @@
     <title>Can We Train Machine Learning Methods to Outperform the High-Dimensional Propensity Score Algorithm?</title>
     <meta charset="utf-8" />
     <meta name="author" content="M. Ehsan. Karim" />
-    <meta name="date" content="2022-05-08" />
+    <meta name="date" content="2022-05-09" />
     <script src="libs/header-attrs/header-attrs.js"></script>
     <link href="libs/remark-css/default.css" rel="stylesheet" />
     <link href="libs/remark-css/chocolate.css" rel="stylesheet" />
@@ -27,7 +27,7 @@ class: center, middle, inverse, title-slide
 ### UBC
 ]
 .date[
-### 08 May 2022
+### 09 May 2022
 ]
 
 ---
@@ -35,18 +35,40 @@ class: center, middle, inverse, title-slide
 
 
 
+
+
+
 # Outline
+
+
+### 1. hdPS
+
+- General idea
+
+### 2. Machine learning-based hdPS
+
+- [Karim et al. 2018](https://doi.org/10.1097/ede.0000000000000787) Epidemiology
+- Joint work with  
+  - Menglan Pang and Robert W Platt
+  - McGill, CNODES Methods; Fund CIHR, Grant #DSE – 146021
+- General idea
+
+### 3. New research since 2018
+
+---
+
+class: inverse, center, middle
+
+# hdPS
 
 ---
 
 ## Motivating Example
 
 
-&lt;img src="images/tbpaper.png" width="30%" style="display: block; margin: auto 0 auto auto;" /&gt;
-
 [Basham et al. 2021](https://doi.org/10.1016/j.eclinm.2021.100752) EClinicalMedicine: [CC BY license](http://creativecommons.org/licenses/by/4.0/)
 
-&lt;img src="images/tbdag.png" width="70%" style="display: block; margin: auto;" /&gt;
+&lt;img src="images/tbdag.png" width="80%" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -114,15 +136,38 @@ Adjust for variables that are
 
 ---
 
-## High-dimensional proxy information
+
+## hdPS: General Idea
 
 Collection of proxy data for the unmeasured + mis-measured variables:
 
-&lt;img src="images/proxy22.png" width="80%" style="display: block; margin: auto;" /&gt;
+&lt;img src="images/proxy330.png" width="90%" style="display: block; margin: auto;" /&gt;
+
+&lt;img src="images/fu.png" width="80%" style="display: block; margin: auto;" /&gt;
 
 ---
 
-## High-dimensional proxy information
+## hdPS: General Idea
+
+Collection of proxy data for the unmeasured + mis-measured variables:
+
+&lt;img src="images/proxy330a.png" width="90%" style="display: block; margin: auto;" /&gt;
+
+&lt;img src="images/fu.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+---
+
+## hdPS: General Idea
+
+Collection of proxy data for the unmeasured + mis-measured variables:
+
+&lt;img src="images/proxy33.png" width="90%" style="display: block; margin: auto;" /&gt;
+
+&lt;img src="images/fu.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+---
+
+## hdPS: General Idea
 
 List of additional proxy variables (empirical covariates / EC):
 
@@ -137,7 +182,23 @@ List of additional proxy variables (empirical covariates / EC):
 
 
 - 4 dimension `\(\times\)` 3 intensity `\(\times\)` 200 most prevalent codes = 2,400 ECs
-- Too many covariates to adjust? 
+
+---
+
+## hdPS: General Idea
+
+&lt;img src="images/psmodelks.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+
+.pull-left[
+PS from only baseline confounders 
+![](images/balancePS.png)
+]
+.pull-right[
+PS from kitchen sink model!
+![](images/balanceallH.png)
+]
+
 
 
 ---
@@ -145,6 +206,13 @@ List of additional proxy variables (empirical covariates / EC):
 
 
 &lt;img src="images/eq1.png" width="95%" style="display: block; margin: auto auto auto 0;" /&gt;
+
+In our example, we use the following in the [Bross (1966)](https://pubmed.ncbi.nlm.nih.gov/5966011/) formula:
+$$
+`\begin{aligned}
+U &amp;=&amp; \text{smoking status}
+\end{aligned}`
+$$
 
 ---
 
@@ -154,14 +222,24 @@ List of additional proxy variables (empirical covariates / EC):
 
 &lt;img src="images/eq2.png" width="100%" style="display: block; margin: auto auto auto 0;" /&gt;
 
+In our example, we use the following in the [Bross (1966)](https://pubmed.ncbi.nlm.nih.gov/5966011/) formula:
+$$
+`\begin{aligned}
+EC &amp;=&amp; \text{EC-dim1-21-once} \\
+&amp;=&amp; \text{EC-dim2-95-once} \\
+&amp;&amp;  \ldots\\
+&amp;=&amp; \text{EC-dim4-64-once}
+\end{aligned}`
+$$
+
 ---
 
-## Select hdPS variables from ECs
+## hdPS mechanism: find useful ECs
 
-Rank (descending) each EC by the magnitude of log-bias: Absolute  `\(log-Bias_M\)`
+Rank (descending) each EC by the magnitude of log-bias: Absolute  log `\(Bias_M\)`
 
 
-| Rank by bias | Absolute `\(log-Bias_M\)` | EC |
+| Rank by bias | Absolute log `\(Bias_M\)` | EC |
 |--------------|-------------------------|----------------------|
 | 1            | 0.42                    | EC-dim1-21-once      |
 | 2            | 0.32                    | EC-dim2-95-once      |
@@ -170,7 +248,160 @@ Rank (descending) each EC by the magnitude of log-bias: Absolute  `\(log-Bias_M\
 | 2,400        | 0.01                    | EC-dim4-64-frequent  |
 
 
-Take top 200 or 500 of these ECs. These are hdPS variables.
+Take top 100 or 500 of these ECs. These are hdPS variables.
+
+&lt;img src="images/psmodelhd.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+---
+
+## hdPS: Balance
+
+.pull-left[
+PS from kitchen sink model!
+![](images/balanceallH.png)
+]
+.pull-right[
+PS from 500-hdPS!
+![](images/balance500hdps.png)
+]
+
+---
+
+## hdPS: estimate treatment effect
+
+[Karim et al. 2018](https://doi.org/10.1097/ede.0000000000000787) Epidemiology
+
+&lt;img src="images/AllORs.png" width="100%" style="display: block; margin: auto auto auto 0;" /&gt;
+
+---
+
+
+## hdPS: Ways to improve
+
+| Rank by bias | Absolute log `\(Bias_M\)` | EC |
+|--------------|-------------------------|----------------------|
+| 1            | 0.42                    | EC-dim1-21-once      |
+| 2            | 0.32                    | EC-dim2-95-once      |
+| 3            | 0.25                    | EC-dim4-289-once     |
+| `\(\ldots\)`     | `\(\ldots\)`                | `\(\ldots\)`             |
+| 500        | 0.03                    | EC-dim4-63-frequent  |
+
+
+- ECs selected separately / univatiately
+    - can be **correlated** (coming from same patient), 
+      - providing same information
+      - **may not be useful anymore** in the presence of others
+    - may inflate **variance**.
+- Multivariate structure is good to consider
+- Model-specification
+
+---
+
+class: inverse, center, middle
+
+# Machine learning-based hdPS
+
+
+---
+
+## Variable selection in PS context
+
+.pull-left[
+- [Brookhart et al. (2006)](https://doi.org/10.1093/aje/kwj149) AJE
+
+- [Myers et al. (2011)](https://doi.org/10.1093/aje/kwr364) AJE
+
+- [Pearl (2011)](https://doi.org/10.1093/aje/kwr352) AJE
+
+- [Schuster et al (2016)](https://doi.org/10.1016/j.jclinepi.2016.05.017) JCE
+]
+
+.pull-right[
+- bias amplification
+
+- inflated variance
+
+- overfitting
+]
+
+&lt;img src="images/vartype.png" width="65%" style="display: block; margin: auto;" /&gt;
+
+---
+
+## Variable selection in PS context
+
+&lt;img src="images/vartype2.png" width="90%" style="display: block; margin: auto;" /&gt;
+
+- Same idea for the proxies. 
+- M-bias [Liu et al (2012)](https://doi.org/10.1093/aje/kws165) AJE
+- Z-bias [Myers et al. (2011)](https://doi.org/10.1093/aje/kwr364) AJE
+- Pre-exposure measurements.
+
+---
+
+## Variable selection in PS context
+
+Jointly consider all proxies in one model to perform variable selection
+
+| Approach | Advantage | Limitations |
+|--------------|-------------------------|----------------------|
+| LASSO [Franklin et al. (2015)](https://doi.org/10.1093/aje/kwv108) AJE          | Variable selection by dropping collinear variables                    |   Tends to select one variable from a group, ignoring the rest     |
+| Elastic net            |  More stable version than LASSO                    | Non-linear and non-additive terms need to be specified      |
+| Random forest [Low et al. (2016)](https://doi.org/10.2217/cer.15.53) J. Comp. Eff. Res.          |  Automatically detect non-linearity and non-additivity                    | Only provides variable importance, but no cut-points     |
+
+---
+
+## Machine learning-based hdPS
+
+### Pure ML approach
+
+Start with all ECs
+
+&lt;img src="images/mlpure.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+Say, 100 ECs (associated with Y) were selected by Elastic net approach
+
+&lt;img src="images/psmodelrefined.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+---
+
+## Machine learning-based hdPS
+
+### Hybrid approach (hdPS, then ML)
+
+Start with top 500 ECs selected by Bross formula / prioritization
+
+&lt;img src="images/mlhybrid.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+Say, 100 ECs (associated with Y) were selected by Elastic net approach
+
+&lt;img src="images/psmodelrefined.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+This approach is different than [Schneeweiss et al. (2017)](https://doi.org/10.1097/EDE.0000000000000581) Epidemiology, where prioritization was used after applying LASSO.
+
+
+---
+
+## hdPS: estimate treatment effect
+
+[Karim et al. 2018](https://doi.org/10.1097/ede.0000000000000787) Epidemiology
+
+&lt;img src="images/AllOR2.png" width="100%" style="display: block; margin: auto auto auto 0;" /&gt;
+---
+
+
+
+## hdPS: estimate treatment effect
+
+[Karim et al. 2018](https://doi.org/10.1097/ede.0000000000000787) Epidemiology
+
+&lt;img src="images/AllORu.png" width="100%" style="display: block; margin: auto auto auto 0;" /&gt;
+---
+
+class: inverse, center, middle
+
+# New research since 2018
+
 
 ---
 
