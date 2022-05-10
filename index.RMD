@@ -18,6 +18,7 @@ output:
 options(htmltools.dir.version = FALSE)
 ```
 
+
 ```{r xaringan-themer, include=FALSE, warning=FALSE}
 library(xaringanthemer)
 style_mono_accent(
@@ -26,6 +27,7 @@ style_mono_accent(
   text_font_google   = google_font("Montserrat", "300", "300i"),
   code_font_google   = google_font("Fira Mono")
 )
+#.center[<span style="color:coral">**Quality of proxy information matters.**</span>]
 ```
 
 
@@ -44,7 +46,7 @@ style_mono_accent(
   - McGill, CNODES Methods; Fund CIHR, Grant #DSE – 146021
 - General idea
 
-### 3. New research since 2018
+### 3. Other / newer research
 
 ---
 
@@ -284,6 +286,21 @@ knitr::include_graphics('images/psmodelhd.png')
 
 ---
 
+## hdPS: Assumption
+
+.large[
+- **The selected ECs collectively serve as .red[proxies of all unmeasured or residual confounders]**
+
+- **Implication**: an hdPS analysis may adjust for the unmeasured or residual confounders
+
+- This assumption is strong and often not verifiable.
+
+]
+
+
+
+---
+
 ## hdPS: Balance
 
 .pull-left[
@@ -369,8 +386,6 @@ knitr::include_graphics('images/vartype2.png')
 ```
 
 - Same idea for the proxies. 
-- M-bias [Liu et al (2012)](https://doi.org/10.1093/aje/kws165) AJE
-- Z-bias [Myers et al. (2011)](https://doi.org/10.1093/aje/kwr364) AJE
 - Pre-exposure measurements.
 
 ---
@@ -426,47 +441,98 @@ This approach is different than [Schneeweiss et al. (2017)](https://doi.org/10.1
 
 ---
 
-## hdPS: estimate treatment effect
+## hdPS vs. ML: estimate treatment effect
 
 [Karim et al. 2018](https://doi.org/10.1097/ede.0000000000000787) Epidemiology
 
 ```{r echo=FALSE, out.width='100%', fig.align="left"}
 knitr::include_graphics('images/AllOR2.png')
 ```
+
+.center[.red[**Only ~ 30% of the selected hdPS covariates were common.**]]
+
 ---
 
 
 
-## hdPS: estimate treatment effect
+## hdPS vs. ML: estimate treatment effect
 
 [Karim et al. 2018](https://doi.org/10.1097/ede.0000000000000787) Epidemiology
 
 ```{r echo=FALSE, out.width='100%', fig.align="left"}
 knitr::include_graphics('images/AllORu.png')
 ```
----
 
-class: inverse, center, middle
-
-# New research since 2018
-
+.center[.red[**Quality of proxy information matters.**]]
 
 ---
+
+
 
 ## hdPS: estimate treatment effect
 
 [Schneeweiss et al. 2018](https://dx.doi.org/10.2147/CLEP.S166545) Clinical Epidemiology: [CC BY license](http://creativecommons.org/licenses/by-nc/3.0/)
 
+.right-column[
 ```{r echo=FALSE, out.width='100%', fig.align="left"}
 knitr::include_graphics('images/hdpsonly.png')
+```
+]
+
+.left-column[
+*"This strongly suggests that even .red[without the investigator-specifying covariates] for adjustment, the .red[algorithm alone] optimizes confounding adjustment."*
+]
+---
+
+## Plasmode Simulation
+
+
+```{r echo=FALSE, out.width='100%', fig.align="center"}
+knitr::include_graphics('images/plasmode.png')
+```
+
+Another baseline set with no unmeasured confounding (1-A to 9-A).
+
+---
+
+## Plasmode Simulation
+
+```{r echo=FALSE, out.width='80%', fig.align="center"}
+knitr::include_graphics('images/resultplasmode.png')
 ```
 
 
 ---
 
-```{r echo=FALSE, out.width='45%', fig.align="right"}
-knitr::include_graphics('images/tbpaper.png')
-```
+## Shared Limitations
+
+.left-column[
+- M-bias [Liu et al (2012)](https://doi.org/10.1093/aje/kws165) AJE
+
+- Z-bias [Myers et al. (2011)](https://doi.org/10.1093/aje/kwr364) AJE
+
+- Principled approach? [VanderWeele et al. 2019](https://doi.org/10.1007/s10654-019-00494-6) EJE
+]
+
+.right-column[
+- .red[No separation] of design and analysis stages in bias-based
+  - exposure-based is OK; but has own issues
+
+- .red[EC interpretation] unclear vs. causal inference
+  - not collected for research purposes
+  - EC used in PS
+
+- Primarily to deal with .red[residual confounding]
+  - Not a straightforward extension to PS analysis
+  - Motivation of PS and hdPS are different to begin
+  - better covariate balance vs. overfitting
+  - Varying number of covariates selected [Tazare et al. 2022](https://doi.org/10.1002/pds.5412)
+  - post-selection bias?
+]
+
+---
+
+## Motivating Example 
 
 Basham et al. 2021 [EClinicalMedicine](https://doi.org/10.1016/j.eclinm.2021.100752): [CC BY license](http://creativecommons.org/licenses/by/4.0/)
 
@@ -474,9 +540,67 @@ Basham et al. 2021 [EClinicalMedicine](https://doi.org/10.1016/j.eclinm.2021.100
 knitr::include_graphics('images/tbanalysis.png')
 ```
 
+.center[.red[I prefer to use hdPS / ML with ECs as a **sensitivity analysis**.]]
+
+---
+
+class: inverse, center, middle
+
+# Other / newer research directions
+
+---
+
+## Other / newer research directions
 
 
+Weberpals et al. (2021) proposed to use autoencoders (3, 5, 7 layers) to reduce EC
+dimensions.
 
+```{r echo=FALSE, out.width='60%', fig.align="center"}
+knitr::include_graphics('images/ae.png')
+```
+
+---
+
+## Other / newer research directions
+
+Naimi et al
+
+SL, TMLE, AIPW and usefulness of cross-validation 
+
+---
+
+## Other / newer research directions
+
+Zivich and Breskin (2021): Cross-fitting + together with double-robust approaches
+
+```{r echo=FALSE, out.width='80%', fig.align="center"}
+knitr::include_graphics('images/cf.png')
+```
+
+---
+
+## Other / newer research directions
+
+hdCS
+
+---
+
+## Take home message
+
+.large[
+- hdPS and ML alternatives generally reduces .red[residual confounding] 
+  
+  - [*] if .red[good proxies] available.
+
+- hdPS: too dependent on .red[Bross-formula] (all binary)
+
+- Non-binary outcome: consider ML methods.
+
+- .red[Hybrid-methods] performed better (MSE).
+
+- Opportunity to conduct more research in this area
+]
 
 ---
 
