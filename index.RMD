@@ -117,7 +117,7 @@ knitr::include_graphics('images/proxy.png')
 
 ## High-dimensional proxy information
 
-[Schneeweiss et al. 2018](https://dx.doi.org/10.2147/CLEP.S166545) Clinical Epidemiology: [CC BY license](http://creativecommons.org/licenses/by-nc/3.0/)
+[Schneeweiss et al. 2018](https://dx.doi.org/10.2147/CLEP.S166545) Clinical Epidemiology: [CC BY NC license](http://creativecommons.org/licenses/by-nc/3.0/)
 
 ```{r echo=FALSE, out.width='100%', fig.align="center"}
 knitr::include_graphics('images/hdpscov.png')
@@ -485,7 +485,7 @@ knitr::include_graphics('images/AllOR2.png')
 
 ## hdPS: estimate treatment effect
 
-[Schneeweiss et al. 2018](https://dx.doi.org/10.2147/CLEP.S166545) Clinical Epidemiology: [CC BY license](http://creativecommons.org/licenses/by-nc/3.0/)
+[Schneeweiss et al. 2018](https://dx.doi.org/10.2147/CLEP.S166545) Clinical Epidemiology: [CC BY NC license](http://creativecommons.org/licenses/by-nc/3.0/)
 
 .right-column[
 ```{r echo=FALSE, out.width='100%', fig.align="left"}
