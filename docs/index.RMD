@@ -1,9 +1,9 @@
 ---
 title: "Can We Train Machine Learning Methods to Outperform the High-Dimensional Propensity Score Algorithm?"
 subtitle: "⚔"
-author: "M. Ehsan. Karim"
-institute: "UBC"
-date: "`r format(Sys.time(), '%d %B %Y')`"
+author: "M. Ehsan. Karim; UBC"
+institute: "2022 Sentinel Innovation and Methods Seminar Series"
+date: "May 11, 2022"
 output:
   xaringan::moon_reader:
     lib_dir: libs
