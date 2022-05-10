@@ -4,7 +4,7 @@
     <title>Can We Train Machine Learning Methods to Outperform the High-Dimensional Propensity Score Algorithm?</title>
     <meta charset="utf-8" />
     <meta name="author" content="M. Ehsan. Karim" />
-    <meta name="date" content="2022-05-09" />
+    <meta name="date" content="2022-05-10" />
     <script src="libs/header-attrs/header-attrs.js"></script>
     <link href="libs/remark-css/default.css" rel="stylesheet" />
     <link href="libs/remark-css/chocolate.css" rel="stylesheet" />
@@ -27,7 +27,7 @@ class: center, middle, inverse, title-slide
 ### UBC
 ]
 .date[
-### 09 May 2022
+### 10 May 2022
 ]
 
 ---
@@ -50,11 +50,13 @@ class: center, middle, inverse, title-slide
 
 - [Karim et al. 2018](https://doi.org/10.1097/ede.0000000000000787) Epidemiology
 - Joint work with  
-  - Menglan Pang and Robert W Platt
+  - .red[Menglan Pang] and .red[Robert W Platt]
   - McGill, CNODES Methods; Fund CIHR, Grant #DSE – 146021
 - General idea
 
-### 3. Other / newer research
+### 3. Related research
+
+- not exhaustive
 
 ---
 
@@ -78,26 +80,26 @@ class: inverse, center, middle
 
 
 .pull-left[
-1. Larger sample size;
+1. Larger .red[sample size];
 
 1. Diverse population;
 
-1. Longitudinal records /many years;
+1. .red[Longitudinal records] /many years;
 
-1. Detailed health encounters, comorbidity history, drug exposure history;
+1. .red[Detailed] health encounters, comorbidity history, drug exposure history;
 
-1. possibility to link other databases.
+1. possibility to .red[link] other databases.
 ]
 
 .pull-right[
-1. Not specifically designed for answering a particular research question;
+1. Not specifically designed for answering a particular .red[research question];
 
-1. Data sparsity: data collection relies on visits and encounters;
+1. .red[Data sparsity]: data collection relies on visits and encounters;
 
 1. No control over which factors were measured.
 ]
 
-.footnote[[*] TLDR: May not have all confounders in the data.]
+.footnote[TLDR: .red[**May not have all confounders**].]
 
 
 ---
@@ -109,7 +111,7 @@ class: inverse, center, middle
 Adjust for variables that are 
 - causes of exposure or outcome or both,  
 - discard: known instrument, 
-- including good proxies for unmeasured common causes
+- including .red[good proxies] for unmeasured common causes
 
 [VanderWeele et al. 2019](https://doi.org/10.1007/s10654-019-00494-6) European Journal of Epidemiology: [CC BY license](http://creativecommons.org/licenses/by/4.0/)
 
@@ -129,7 +131,7 @@ Adjust for variables that are
 
 - Adjusting for something that **may not be interpretable** directly with the context of the research question. 
 
-- Logic: measures from same subject should be **correlated** = has relevant proxy information
+- .red[**Logic**]: measures from same subject should be **correlated** = relevant proxy information
 
 
 &lt;img src="index_files/figure-html/cite-1.png" width="50%" style="display: block; margin: auto;" /&gt;
@@ -178,11 +180,14 @@ List of additional proxy variables (empirical covariates / EC):
 | EC-dim1-1-sporadic   | EC-dim2-1-sporadic   | EC-dim3-1-sporadic  | EC-dim4-1-sporadic   |
 | EC-dim1-1-frequent   | EC-dim2-1-frequent   | EC-dim3-1-frequent  | EC-dim4-1-frequent   |
 | `\(\ldots\)`             | `\(\ldots\)`             | `\(\ldots\)`            | `\(\ldots\)`            |
-| EC-dim1-686-frequent | EC-dim2-328-frequent | EC-dim3-76-frequent | EC-dim4-284-frequent |
+| EC-dim1-.red[686]-frequent | EC-dim2-.red[328]-frequent | EC-dim3-.red[76]-frequent | EC-dim4-.red[284]-frequent |
 
 
-
-- 4 dimension `\(\times\)` 3 intensity `\(\times\)` 200 most prevalent codes = 2,400 ECs
+- Total (686+328+76+284)*3 = .red[4,122 ECs]
+- 4 dimension `\(\times\)` 3 intensity `\(\times\)` 200 most prevalent codes [*] = .red[**2,400 ECs**]
+- [Schuster et al. (2015)](https://doi.org/10.1002/pds.3773) PDS 
+  - recommended omitting prevalence-based selection 
+- no/less variability in a variable is a problem
 
 ---
 
@@ -208,13 +213,20 @@ PS from kitchen sink model!
 
 &lt;img src="images/eq1.png" width="95%" style="display: block; margin: auto auto auto 0;" /&gt;
 
-In our example, we use the following in the [Bross (1966)](https://pubmed.ncbi.nlm.nih.gov/5966011/) formula:
+.pull-left[
+In our example, 
 $$
 `\begin{aligned}
 U &amp;=&amp; \text{smoking status}
 \end{aligned}`
 $$
-
+]
+.pull-right[
+- [Bross (1966)](https://pubmed.ncbi.nlm.nih.gov/5966011/) formula requires
+  - binary U
+  - binary Y
+  - binary A
+]  
 ---
 
 
@@ -223,7 +235,7 @@ $$
 
 &lt;img src="images/eq2.png" width="100%" style="display: block; margin: auto auto auto 0;" /&gt;
 
-In our example, we use the following in the [Bross (1966)](https://pubmed.ncbi.nlm.nih.gov/5966011/) formula:
+.pull-left[In our example, 
 $$
 `\begin{aligned}
 EC &amp;=&amp; \text{EC-dim1-21-once} \\
@@ -232,7 +244,14 @@ EC &amp;=&amp; \text{EC-dim1-21-once} \\
 &amp;=&amp; \text{EC-dim4-64-once}
 \end{aligned}`
 $$
+]
 
+.pull-right[
+- [Bross (1966)](https://pubmed.ncbi.nlm.nih.gov/5966011/) formula requires
+  - binary EC
+  - binary Y
+  - binary A
+] 
 ---
 
 ## hdPS mechanism: find useful ECs
@@ -249,7 +268,7 @@ Rank (descending) each EC by the magnitude of log-bias: Absolute  log `\(Bias_M\
 | 2,400        | 0.01                    | EC-dim4-64-frequent  |
 
 
-Take top 100 or 500 of these ECs. These are hdPS variables.
+Take top .red[100 or 500] of these ECs. These are hdPS variables.
 
 &lt;img src="images/psmodelhd.png" width="100%" style="display: block; margin: auto;" /&gt;
 
@@ -285,9 +304,12 @@ PS from 500-hdPS!
 
 ## hdPS: estimate treatment effect
 
-[Karim et al. 2018](https://doi.org/10.1097/ede.0000000000000787) Epidemiology
+- [Karim et al. 2018](https://doi.org/10.1097/ede.0000000000000787) Epidemiology
+- Previous research: [Pang et al. (2016)](https://dx.doi.org/10.1097%2FEDE.0000000000000487): Epidemiology
+
 
 &lt;img src="images/AllORs.png" width="100%" style="display: block; margin: auto auto auto 0;" /&gt;
+
 
 ---
 
@@ -303,13 +325,13 @@ PS from 500-hdPS!
 | 500        | 0.03                    | EC-dim4-63-frequent  |
 
 
-- ECs selected separately / univatiately
+- ECs selected separately / .red[univatiately] [VanderWeele et al. 2019](https://doi.org/10.1007/s10654-019-00494-6) EJE
     - can be **correlated** (coming from same patient), 
       - providing same information
       - **may not be useful anymore** in the presence of others
-    - may inflate **variance**.
-- Multivariate structure is good to consider
-- Model-specification
+
+- .red[Multivariate] structure is good to consider
+  - Model-specification
 
 ---
 
@@ -359,9 +381,14 @@ Jointly consider all proxies in one model to perform variable selection
 
 | Approach | Advantage | Limitations |
 |--------------|-------------------------|----------------------|
-| LASSO [Franklin et al. (2015)](https://doi.org/10.1093/aje/kwv108) AJE          | Variable selection by dropping collinear variables                    |   Tends to select one variable from a group, ignoring the rest     |
-| Elastic net            |  More stable version than LASSO                    | Non-linear and non-additive terms need to be specified      |
-| Random forest [Low et al. (2016)](https://doi.org/10.2217/cer.15.53) J. Comp. Eff. Res.          |  Automatically detect non-linearity and non-additivity                    | Only provides variable importance, but no cut-points     |
+| LASSO [Franklin et al. (2015)](https://doi.org/10.1093/aje/kwv108) AJE          | Variable selection by dropping .red[collinear] variables                    |   Tends to select one variable from a group, ignoring the rest     |
+| Elastic net            |  More .red[stable] version than LASSO                    | Non-linear and non-additive terms need to be specified      |
+| Random forest [Low et al. (2016)](https://doi.org/10.2217/cer.15.53) J. Comp. Eff. Res.          |  Automatically detect non-linearity and .red[non-additivity]                    | Only provides **variable importance**, but no cut-points     |
+
+
+**Variable importance**:
+
+&lt;img src="images/varimp.png" width="40%" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -407,19 +434,6 @@ This approach is different than [Schneeweiss et al. (2017)](https://doi.org/10.1
 ---
 
 
-
-## hdPS vs. ML: estimate treatment effect
-
-[Karim et al. 2018](https://doi.org/10.1097/ede.0000000000000787) Epidemiology
-
-&lt;img src="images/AllORu.png" width="100%" style="display: block; margin: auto auto auto 0;" /&gt;
-
-.center[.red[**Quality of proxy information matters.**]]
-
----
-
-
-
 ## hdPS: estimate treatment effect
 
 [Schneeweiss et al. 2018](https://dx.doi.org/10.2147/CLEP.S166545) Clinical Epidemiology: [CC BY license](http://creativecommons.org/licenses/by-nc/3.0/)
@@ -433,12 +447,23 @@ This approach is different than [Schneeweiss et al. (2017)](https://doi.org/10.1
 ]
 ---
 
+## hdPS vs. ML: estimate treatment effect
+
+[Karim et al. 2018](https://doi.org/10.1097/ede.0000000000000787) Epidemiology
+
+&lt;img src="images/AllORu.png" width="100%" style="display: block; margin: auto auto auto 0;" /&gt;
+
+.center[.red[**Quality of proxy information matters.**]]
+
+---
+
 ## Plasmode Simulation
 
+[Franklin et al. (2014)](https://doi.org/10.1016/j.csda.2013.10.018) CSDA
 
 &lt;img src="images/plasmode.png" width="100%" style="display: block; margin: auto;" /&gt;
 
-Another baseline set with no unmeasured confounding (1-A to 9-A).
+Another baseline set with .red[no unmeasured confounding] (1-A to 9-A).
 
 ---
 
@@ -455,8 +480,6 @@ Another baseline set with no unmeasured confounding (1-A to 9-A).
 - M-bias [Liu et al (2012)](https://doi.org/10.1093/aje/kws165) AJE
 
 - Z-bias [Myers et al. (2011)](https://doi.org/10.1093/aje/kwr364) AJE
-
-- Principled approach? [VanderWeele et al. 2019](https://doi.org/10.1007/s10654-019-00494-6) EJE
 ]
 
 .right-column[
@@ -469,10 +492,36 @@ Another baseline set with no unmeasured confounding (1-A to 9-A).
 
 - Primarily to deal with .red[residual confounding]
   - Not a straightforward extension to PS analysis
-  - Motivation of PS and hdPS are different to begin
-  - better covariate balance vs. overfitting
+  - .red[Motivation of PS and hdPS are different to begin with]
+  
+- better covariate balance vs. overfitting
   - Varying number of covariates selected [Tazare et al. 2022](https://doi.org/10.1002/pds.5412)
-  - post-selection bias?
+
+- post-selection bias [Taylor and Tibshirani (2015)](https://doi.org/10.1073/pnas.1507583112)
+]
+
+---
+
+## Advantage and Limitations
+
+.pull-left[
+- Alternative ways to prioritize / rank 
+  - Automatic .red[cut-off] of how many variables 
+  - .red[Ranking]
+
+- Pure ML methods can be used for non-binary outcomes and proxies
+  - binary
+  - categorized
+  - continuous
+  - survival
+]
+
+.pull-right[
+- .red[Coverage] not assessed [Morris et al. (2019)](https://doi.org/10.1002/sim.8086)
+
+- Only a few ML methods assessed
+
+- DR methods not covered
 ]
 
 ---
@@ -483,45 +532,102 @@ Basham et al. 2021 [EClinicalMedicine](https://doi.org/10.1016/j.eclinm.2021.100
 
 &lt;img src="images/tbanalysis.png" width="100%" style="display: block; margin: auto;" /&gt;
 
-.center[.red[I prefer to use hdPS / ML with ECs as a **sensitivity analysis**.]]
+.center[I prefer to use hdPS / ML with ECs as a .red[**secondary analysis**] (proxy adjustment method).]
+
+
+---
+
+## JAMA Example
+
+[Brown et al. (2017)](https://doi.org/10.1001/jama.2017.3415)
+
+| Method                 | HR                     | CI `\(95\%\)`                    |
+|--|-|-|
+| Unadjusted             | 2.16                   | 1.64-2.86                    |
+| Regression | 1.59                   | 1.17-2.17                    |
+| IPTW hdPS              | .red[1.61] | .red[0.997-2.59] |
+| 1-1 hdPS matching      | 1.64                   | 1.07-2.53                    |
+| Pre-pregnancy      | 1.85                   | 1.37-2.51                    |
+
+- Conclusion: **not associated**
+- More discussion: [Amrhein, Trafimow, Greenland, 2019](https://doi.org/10.1080/00031305.2018.1543137) The American Statistician
 
 ---
 
 class: inverse, center, middle
 
-# Other / newer research directions
+# Related research directions
 
 ---
 
-## Other / newer research directions
+## Related research directions
 
+### AI : Autoencoders
 
-Weberpals et al. (2021) proposed to use autoencoders (3, 5, 7 layers) to reduce EC
-dimensions.
+[Weberpals et al. (2021)](https://doi.org/10.1097/ede.0000000000001338) proposed to use autoencoders (3, 5, 7 layers) to reduce EC dimensions.
 
-&lt;img src="images/ae.png" width="60%" style="display: block; margin: auto;" /&gt;
+&lt;img src="images/ae.png" width="40%" style="display: block; margin: auto;" /&gt;
 
----
-
-## Other / newer research directions
-
-Naimi et al
-
-SL, TMLE, AIPW and usefulness of cross-validation 
+- Autoencoder-based hdPS is useful.
+- Shallow learning (less layers) had better MSE.
+- .red[Did not perform better than LASSO].
 
 ---
 
-## Other / newer research directions
 
-Zivich and Breskin (2021): Cross-fitting + together with double-robust approaches
+## Related research directions
+
+### TMLE
+
+Targetted learning approach
+[Pang et al. (2016)](https://dx.doi.org/10.1097%2FEDE.0000000000000487): Epidemiology : [CC BY-NC-ND license](https://creativecommons.org/licenses/by-nc-nd/4.0/)
+
+&lt;img src="images/sw.png" width="60%" style="display: block; margin: auto;" /&gt;
+
+[Haris and Platt (2021)](https://doi.org/10.48550/arXiv.2112.08495) arxiv
+
+- group importance score
+- extension of the hdPS (.red[hdCS]) to non-binary outcome and confounders
+
+---
+## Related research directions
+
+### Sample splitting
+
+[Naimi et al. (2021)](https://doi.org/10.1093/aje/kwab201) AJE
+
+SL, TMLE, AIPW and usefulness of sample splitting
+
+- ML based .red[singly robust methods] should be avoided
+- Use .red[sample splitting]
+- .red[rich SL library] of flexible regression as well as higher order interactions
+
+---
+
+## Related research directions
+
+### Cross-fitting
+
+[Zivich and Breskin (2021)](https://doi.org/10.1097/ede.0000000000001332) Epidemiology
+
+- Cross-fitting + together with double-robust approaches
 
 &lt;img src="images/cf.png" width="80%" style="display: block; margin: auto;" /&gt;
 
+
+
 ---
+## Related research directions
 
-## Other / newer research directions
+### SL library
 
-hdCS
+[Balzer and Westling (2021)](https://doi.org/10.1093/aje/kwab200) AJE
+
+- TMLE without sample-splitting with a carefully chosen SL library
+
+[Meng and Huang (2021)](https://doi.org/10.48550/arXiv.2105.13148) arxiv
+- SL with .red[smooth] (differentiable: LASSO, spline) learners outperform those that included non-smooth learners
+
 
 ---
 
@@ -538,7 +644,7 @@ hdCS
 
 - .red[Hybrid-methods] performed better (MSE).
 
-- Opportunity to conduct more research in this area
+- Active area of research
 ]
 
 ---
