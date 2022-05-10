@@ -471,6 +471,13 @@ Another baseline set with .red[no unmeasured confounding] (1-A to 9-A).
 
 &lt;img src="images/resultplasmode.png" width="80%" style="display: block; margin: auto;" /&gt;
 
+---
+
+## Plasmode Simulation
+
+Comparable if .red[adequate proxies] incorporated
+
+&lt;img src="images/res.png" width="60%" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -564,9 +571,9 @@ class: inverse, center, middle
 
 ### AI : Autoencoders
 
-[Weberpals et al. (2021)](https://doi.org/10.1097/ede.0000000000001338) proposed to use autoencoders (3, 5, 7 layers) to reduce EC dimensions.
+[Weberpals et al. (2021)](https://doi.org/10.1097/ede.0000000000001338) used autoencoders (3, 5, 7 layers) to reduce EC dimensions.
 
-&lt;img src="images/ae.png" width="40%" style="display: block; margin: auto;" /&gt;
+&lt;img src="images/ae.png" width="30%" style="display: block; margin: auto;" /&gt;
 
 - Autoencoder-based hdPS is useful.
 - Shallow learning (less layers) had better MSE.
@@ -580,9 +587,14 @@ class: inverse, center, middle
 ### TMLE
 
 Targetted learning approach
-[Pang et al. (2016)](https://dx.doi.org/10.1097%2FEDE.0000000000000487): Epidemiology : [CC BY-NC-ND license](https://creativecommons.org/licenses/by-nc-nd/4.0/)
+[Pang et al. (2016)](https://dx.doi.org/10.1097%2FEDE.0000000000000487): Epidemiology 
 
-&lt;img src="images/sw.png" width="60%" style="display: block; margin: auto;" /&gt;
+| Model | Max SW weight|
+|--|-|
+| Only important 5 confounders | 1.78|
+| 29 confounders | 69.67|
+| 29 confounders + 400 ECs | .red[390.77]|
+
 
 [Haris and Platt (2021)](https://doi.org/10.48550/arXiv.2112.08495) arxiv
 
@@ -612,7 +624,7 @@ SL, TMLE, AIPW and usefulness of sample splitting
 
 - Cross-fitting + together with double-robust approaches
 
-&lt;img src="images/cf.png" width="80%" style="display: block; margin: auto;" /&gt;
+&lt;img src="images/cf.png" width="70%" style="display: block; margin: auto;" /&gt;
 
 
 
@@ -638,7 +650,7 @@ SL, TMLE, AIPW and usefulness of sample splitting
   
   - [*] if .red[good proxies] available.
 
-- hdPS: too dependent on .red[Bross-formula] (all binary)
+- hdPS: dependent on .red[Bross-formula] (all binary)
 
 - Non-binary outcome: consider ML methods.
 
