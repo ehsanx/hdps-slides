@@ -308,11 +308,13 @@ knitr::include_graphics('images/psmodelhd.png')
 ## hdPS: Assumption
 
 .large[
-- **The selected ECs collectively serve as .red[proxies of all unmeasured or residual confounders]**
+- **The selected ECs collectively serve as .red[proxies of all unmeasured or residual confounding]**
 
-- **Implication**: an hdPS analysis may adjust for the unmeasured or residual confounders
+- **Implication**: an hdPS analysis may adjust for the unmeasured or residual confounding
 
 - This assumption is strong and often not verifiable.
+
+- Helpful in practice?
 
 ]
 
@@ -412,7 +414,7 @@ knitr::include_graphics('images/vartype2.png')
 
 ---
 
-## Variable selection in PS context
+## Variable selection via ML
 
 Jointly consider all proxies in one model to perform variable selection
 
@@ -522,9 +524,11 @@ Another baseline set with .red[no unmeasured confounding] (1-A to 9-A).
 
 ---
 
-## Plasmode Simulation
+## Plasmode Simulation: Leaderboard
 
-```{r echo=FALSE, out.width='80%', fig.align="center"}
+.red[Answer] to the question in the title of this talk (**bold** = pure ML):
+
+```{r echo=FALSE, out.width='75%', fig.align="center"}
 knitr::include_graphics('images/resultplasmode.png')
 ```
 
@@ -532,7 +536,7 @@ knitr::include_graphics('images/resultplasmode.png')
 
 ## Plasmode Simulation
 
-Comparable if .red[adequate proxies] incorporated
+Comparable if .red[adequate proxies] incorporated (RD estimates)
 
 ```{r echo=FALSE, out.width='60%', fig.align="center"}
 knitr::include_graphics('images/res.png')
@@ -575,7 +579,7 @@ knitr::include_graphics('images/res.png')
   - Automatic .red[cut-off] of how many variables 
   - .red[Ranking]
 
-- Pure ML methods can be used for non-binary outcomes and proxies
+- Pure ML methods can be used for .red[non-binary] outcomes and proxies
   - binary
   - categorized
   - continuous
@@ -600,7 +604,8 @@ Basham et al. 2021 [EClinicalMedicine](https://doi.org/10.1016/j.eclinm.2021.100
 knitr::include_graphics('images/tbanalysis.png')
 ```
 
-.center[I prefer to use hdPS / ML with ECs as a .red[**secondary analysis**] (proxy adjustment method).]
+- Prefer to use hdPS / ML with ECs as a .red[**secondary analysis**] 
+- Proxy adjustment method (methods vs. subject area journals).
 
 
 ---
