@@ -7,7 +7,7 @@ date: "May 11, 2022"
 output:
   xaringan::moon_reader:
     lib_dir: libs
-    css: [default, chocolate, chocolate-fonts]
+    css: [default, chocolate, chocolate-fonts, style.css]
     nature:
       highlightStyle: github
       highlightLines: true
@@ -30,6 +30,20 @@ style_mono_accent(
 #.center[<span style="color:coral">**Quality of proxy information matters.**</span>]
 ```
 
+class: full
+
+
+
+```{r echo=FALSE, out.width='100%', fig.align="center"}
+knitr::include_graphics('images/top0.png')
+```
+```{r echo=FALSE, out.width='100%', fig.align="center"}
+knitr::include_graphics('images/top.png')
+```
+```{r echo=FALSE, out.width='100%', fig.align="center"}
+knitr::include_graphics('images/top0.png')
+```
+---
 
 # Outline
 
@@ -67,6 +81,8 @@ class: inverse, center, middle
 ```{r echo=FALSE, out.width='80%', fig.align="center"}
 knitr::include_graphics('images/tbdag.png')
 ```
+
+.red[Healthcare claims data] for immigrants to British Columbia, Canada, 1985–2015
 
 ---
 
@@ -110,17 +126,26 @@ knitr::include_graphics('images/tbdag.png')
 
 [VanderWeele et al. 2019](https://doi.org/10.1007/s10654-019-00494-6) European Journal of Epidemiology: [CC BY license](http://creativecommons.org/licenses/by/4.0/)
 
-```{r echo=FALSE, out.width='75%', fig.align="center"}
+.left-column[
+- $U$ = Smoking
+
+- $C_1$ = Tobacco use
+]
+
+.right-column[
+
+```{r echo=FALSE, out.width='85%', fig.align="center"}
 knitr::include_graphics('images/proxy.png')
 ```
 
+]
 ---
 
 ## Proxy information in Admin data
 
 [Schneeweiss et al. 2018](https://dx.doi.org/10.2147/CLEP.S166545) Clinical Epidemiology: [CC BY NC license](http://creativecommons.org/licenses/by-nc/3.0/)
 
-.red[Proxies of underlying confounders] 
+Regular epidemiological studies vs. .red[Proxies of underlying confounders] 
 
 ```{r echo=FALSE, out.width='90%', fig.align="center"}
 knitr::include_graphics('images/hdpscov.png')
@@ -156,7 +181,7 @@ text(mp, vals, labels = vals, pos = 3)
 
 ## hdPS: General Idea
 
-Collection of proxy data for the unmeasured + mis-measured variables:
+[Karim et al. 2018](https://doi.org/10.1097/ede.0000000000000787) Epidemiology: Clinical Practice Research Datalink (1998–2012)
 
 ```{r echo=FALSE, out.width='90%', fig.align="center"}
 knitr::include_graphics('images/proxy330.png')
@@ -170,7 +195,7 @@ knitr::include_graphics('images/fu.png')
 
 ## hdPS: General Idea
 
-Collection of proxy data for the unmeasured + mis-measured variables:
+[Karim et al. 2018](https://doi.org/10.1097/ede.0000000000000787) Epidemiology: Clinical Practice Research Datalink (1998–2012)
 
 ```{r echo=FALSE, out.width='90%', fig.align="center"}
 knitr::include_graphics('images/proxy330a.png')
@@ -184,7 +209,7 @@ knitr::include_graphics('images/fu.png')
 
 ## hdPS: General Idea
 
-Collection of proxy data for the unmeasured + mis-measured variables:
+[Karim et al. 2018](https://doi.org/10.1097/ede.0000000000000787) Epidemiology: Clinical Practice Research Datalink (1998–2012)
 
 ```{r echo=FALSE, out.width='90%', fig.align="center"}
 knitr::include_graphics('images/proxy33.png')
@@ -198,7 +223,7 @@ knitr::include_graphics('images/fu.png')
 
 ## hdPS: General Idea
 
-List of additional proxy variables (empirical covariates / EC):
+List of additional proxy variables (.red[empirical covariates] / .red[EC]):
 
 | Practice (Dimension 1)             | Diagnostic (Dimension 2)           | Procedure (Dimension 3)           | Medication (Dimension 4)           |
 |----------------------|----------------------|---------------------|----------------------|
@@ -210,10 +235,9 @@ List of additional proxy variables (empirical covariates / EC):
 
 
 - Total (686+328+76+284)*3 = .red[4,122 ECs]
-- 4 dimension $\times$ 3 intensity $\times$ 200 most prevalent codes [*] = .red[**2,400 ECs**]
-- [Schuster et al. (2015)](https://doi.org/10.1002/pds.3773) PDS 
-  - recommended omitting prevalence-based selection 
-- no/less variability in a variable is a problem
+- 4 dimension $\times$ 3 intensity $\times$ 200 .red[most prevalent codes] [*] = .red[**2,400 ECs**]
+
+- [*] [Schuster et al. (2015)](https://doi.org/10.1002/pds.3773) PDS recommended omitting prevalence-based selection 
 
 ---
 
@@ -300,7 +324,7 @@ Rank (descending) each EC by the magnitude of log-bias: Absolute  log $Bias_M$
 | 2,400        | 0.01                    | EC-dim4-64-frequent  |
 
 
-Take top .red[100 or 500] of these ECs. These are hdPS variables.
+Take top .red[100] or .red[500] of these ECs. These are hdPS variables.
 
 ```{r echo=FALSE, out.width='100%', fig.align="center"}
 knitr::include_graphics('images/psmodelhd.png')
@@ -486,7 +510,7 @@ This approach is different than [Schneeweiss et al. (2017)](https://doi.org/10.1
 knitr::include_graphics('images/AllOR2.png')
 ```
 
-.center[.red[**Only ~ 30% of the selected hdPS covariates were common.**]]
+.center[.red[**Only ~ 30% of the selected ECs were common.**]]
 
 ---
 

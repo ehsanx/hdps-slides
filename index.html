@@ -9,6 +9,7 @@
     <link href="libs/remark-css/default.css" rel="stylesheet" />
     <link href="libs/remark-css/chocolate.css" rel="stylesheet" />
     <link href="libs/remark-css/chocolate-fonts.css" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" type="text/css" />
   </head>
   <body>
     <textarea id="source">
@@ -38,6 +39,14 @@ class: center, middle, inverse, title-slide
 
 
 
+class: full
+
+
+
+&lt;img src="images/top0.png" width="100%" style="display: block; margin: auto;" /&gt;
+&lt;img src="images/top.png" width="100%" style="display: block; margin: auto;" /&gt;
+&lt;img src="images/top0.png" width="100%" style="display: block; margin: auto;" /&gt;
+---
 
 # Outline
 
@@ -73,6 +82,8 @@ class: inverse, center, middle
 [Basham et al. 2021](https://doi.org/10.1016/j.eclinm.2021.100752) EClinicalMedicine: [CC BY license](http://creativecommons.org/licenses/by/4.0/)
 
 &lt;img src="images/tbdag.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+.red[Healthcare claims data] for immigrants to British Columbia, Canada, 1985–2015
 
 ---
 
@@ -116,15 +127,24 @@ class: inverse, center, middle
 
 [VanderWeele et al. 2019](https://doi.org/10.1007/s10654-019-00494-6) European Journal of Epidemiology: [CC BY license](http://creativecommons.org/licenses/by/4.0/)
 
-&lt;img src="images/proxy.png" width="75%" style="display: block; margin: auto;" /&gt;
+.left-column[
+- `\(U\)` = Smoking
 
+- `\(C_1\)` = Tobacco use
+]
+
+.right-column[
+
+&lt;img src="images/proxy.png" width="85%" style="display: block; margin: auto;" /&gt;
+
+]
 ---
 
 ## Proxy information in Admin data
 
 [Schneeweiss et al. 2018](https://dx.doi.org/10.2147/CLEP.S166545) Clinical Epidemiology: [CC BY NC license](http://creativecommons.org/licenses/by-nc/3.0/)
 
-.red[Proxies of underlying confounders] 
+Regular epidemiological studies vs. .red[Proxies of underlying confounders] 
 
 &lt;img src="images/hdpscov.png" width="90%" style="display: block; margin: auto;" /&gt;
 
@@ -145,7 +165,7 @@ class: inverse, center, middle
 
 ## hdPS: General Idea
 
-Collection of proxy data for the unmeasured + mis-measured variables:
+[Karim et al. 2018](https://doi.org/10.1097/ede.0000000000000787) Epidemiology: Clinical Practice Research Datalink (1998–2012)
 
 &lt;img src="images/proxy330.png" width="90%" style="display: block; margin: auto;" /&gt;
 
@@ -155,7 +175,7 @@ Collection of proxy data for the unmeasured + mis-measured variables:
 
 ## hdPS: General Idea
 
-Collection of proxy data for the unmeasured + mis-measured variables:
+[Karim et al. 2018](https://doi.org/10.1097/ede.0000000000000787) Epidemiology: Clinical Practice Research Datalink (1998–2012)
 
 &lt;img src="images/proxy330a.png" width="90%" style="display: block; margin: auto;" /&gt;
 
@@ -165,7 +185,7 @@ Collection of proxy data for the unmeasured + mis-measured variables:
 
 ## hdPS: General Idea
 
-Collection of proxy data for the unmeasured + mis-measured variables:
+[Karim et al. 2018](https://doi.org/10.1097/ede.0000000000000787) Epidemiology: Clinical Practice Research Datalink (1998–2012)
 
 &lt;img src="images/proxy33.png" width="90%" style="display: block; margin: auto;" /&gt;
 
@@ -175,7 +195,7 @@ Collection of proxy data for the unmeasured + mis-measured variables:
 
 ## hdPS: General Idea
 
-List of additional proxy variables (empirical covariates / EC):
+List of additional proxy variables (.red[empirical covariates] / .red[EC]):
 
 | Practice (Dimension 1)             | Diagnostic (Dimension 2)           | Procedure (Dimension 3)           | Medication (Dimension 4)           |
 |----------------------|----------------------|---------------------|----------------------|
@@ -187,10 +207,9 @@ List of additional proxy variables (empirical covariates / EC):
 
 
 - Total (686+328+76+284)*3 = .red[4,122 ECs]
-- 4 dimension `\(\times\)` 3 intensity `\(\times\)` 200 most prevalent codes [*] = .red[**2,400 ECs**]
-- [Schuster et al. (2015)](https://doi.org/10.1002/pds.3773) PDS 
-  - recommended omitting prevalence-based selection 
-- no/less variability in a variable is a problem
+- 4 dimension `\(\times\)` 3 intensity `\(\times\)` 200 .red[most prevalent codes] [*] = .red[**2,400 ECs**]
+
+- [*] [Schuster et al. (2015)](https://doi.org/10.1002/pds.3773) PDS recommended omitting prevalence-based selection 
 
 ---
 
@@ -271,7 +290,7 @@ Rank (descending) each EC by the magnitude of log-bias: Absolute  log `\(Bias_M\
 | 2,400        | 0.01                    | EC-dim4-64-frequent  |
 
 
-Take top .red[100 or 500] of these ECs. These are hdPS variables.
+Take top .red[100] or .red[500] of these ECs. These are hdPS variables.
 
 &lt;img src="images/psmodelhd.png" width="100%" style="display: block; margin: auto;" /&gt;
 
@@ -437,7 +456,7 @@ This approach is different than [Schneeweiss et al. (2017)](https://doi.org/10.1
 
 &lt;img src="images/AllOR2.png" width="100%" style="display: block; margin: auto auto auto 0;" /&gt;
 
-.center[.red[**Only ~ 30% of the selected hdPS covariates were common.**]]
+.center[.red[**Only ~ 30% of the selected ECs were common.**]]
 
 ---
 
