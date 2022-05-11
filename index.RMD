@@ -33,10 +33,11 @@ style_mono_accent(
 
 # Outline
 
+.center[Slides at [tinyurl.com/hdps2022](https://tinyurl.com/hdps2022)]
 
 ### 1. hdPS
 
-- General idea
+- Basic terminology
 
 ### 2. Machine learning-based hdPS
 
@@ -48,7 +49,7 @@ style_mono_accent(
 
 ### 3. Related research
 
-- not exhaustive
+- Not exhaustive
 
 ---
 
@@ -80,7 +81,7 @@ knitr::include_graphics('images/tbdag.png')
 
 1. .red[Longitudinal records] /many years;
 
-1. .red[Detailed] health encounters, comorbidity history, drug exposure history;
+1. .red[Detailed] health encounters, comorbidity, drug exposure history;
 
 1. possibility to .red[link] other databases.
 ]
@@ -88,7 +89,7 @@ knitr::include_graphics('images/tbdag.png')
 .pull-right[
 1. Not specifically designed for answering a particular .red[research question];
 
-1. .red[Data sparsity]: data collection relies on visits and encounters;
+1. .red[Data sparsity]: relies on visits and encounters;
 
 1. No control over which factors were measured.
 ]
@@ -98,28 +99,30 @@ knitr::include_graphics('images/tbdag.png')
 
 ---
 
-## Principles of confounder selection
+## How to select adjustment variables?
 
 **Modified disjunctive cause criterion**
 
-Adjust for variables that are 
+.red[Adjust] for variables that are 
 - causes of exposure or outcome or both,  
 - discard: known instrument, 
 - including .red[good proxies] for unmeasured common causes
 
 [VanderWeele et al. 2019](https://doi.org/10.1007/s10654-019-00494-6) European Journal of Epidemiology: [CC BY license](http://creativecommons.org/licenses/by/4.0/)
 
-```{r echo=FALSE, out.width='80%', fig.align="center"}
+```{r echo=FALSE, out.width='75%', fig.align="center"}
 knitr::include_graphics('images/proxy.png')
 ```
 
 ---
 
-## High-dimensional proxy information
+## Proxy information in Admin data
 
 [Schneeweiss et al. 2018](https://dx.doi.org/10.2147/CLEP.S166545) Clinical Epidemiology: [CC BY NC license](http://creativecommons.org/licenses/by-nc/3.0/)
 
-```{r echo=FALSE, out.width='100%', fig.align="center"}
+.red[Proxies of underlying confounders] 
+
+```{r echo=FALSE, out.width='90%', fig.align="center"}
 knitr::include_graphics('images/hdpscov.png')
 ```
 
@@ -380,6 +383,8 @@ class: inverse, center, middle
 ## Variable selection in PS context
 
 .pull-left[
+.red[**Literature**]
+
 - [Brookhart et al. (2006)](https://doi.org/10.1093/aje/kwj149) AJE
 
 - [Myers et al. (2011)](https://doi.org/10.1093/aje/kwr364) AJE
@@ -409,23 +414,24 @@ knitr::include_graphics('images/vartype.png')
 knitr::include_graphics('images/vartype2.png')
 ```
 
+- How to select variables to adjust?
 - Same idea for the proxies. 
-- Pre-exposure measurements.
+- .red[Pre-exposure] measurements (no mediator, collider, effect).
+- .red[Associated with Y] (irrespective of association with A)
 
 ---
 
 ## Variable selection via ML
 
-Jointly consider all proxies in one model to perform variable selection
+- .red[Jointly] consider in 1 model: 
+  - Perform variable selection based on .red[association with outcome]
 
 | Approach | Advantage | Limitations |
 |--------------|-------------------------|----------------------|
 | LASSO [Franklin et al. (2015)](https://doi.org/10.1093/aje/kwv108) AJE          | Variable selection by dropping .red[collinear] variables                    |   Tends to select one variable from a group, ignoring the rest     |
-| Elastic net            |  More .red[stable] version than LASSO                    | Non-linear and non-additive terms need to be specified      |
+| Elastic net            |  More .red[stable] than LASSO                    | Non-linear and non-additive terms need to be specified      |
 | Random forest [Low et al. (2016)](https://doi.org/10.2217/cer.15.53) J. Comp. Eff. Res.          |  Automatically detect non-linearity and .red[non-additivity]                    | Only provides **variable importance**, but no cut-points     |
 
-
-**Variable importance**:
 
 ```{r echo=FALSE, out.width='40%', fig.align="center"}
 knitr::include_graphics('images/varimp.png')
@@ -553,9 +559,6 @@ knitr::include_graphics('images/res.png')
 ]
 
 .right-column[
-- .red[No separation] of design and analysis stages in bias-based
-  - exposure-based is OK; but has own issues
-
 - .red[EC interpretation] unclear vs. causal inference
   - not collected for research purposes
   - EC used in PS
@@ -563,9 +566,9 @@ knitr::include_graphics('images/res.png')
 - Primarily to deal with .red[residual confounding]
   - Not a straightforward extension to PS analysis
   - .red[Motivation of PS and hdPS are different to begin with]
-  
-- better covariate balance vs. overfitting
-  - Varying number of covariates selected [Tazare et al. 2022](https://doi.org/10.1002/pds.5412)
+
+- .red[No separation] of design and analysis stages in bias-based
+  - exposure-based is OK; but has own issues
 
 - post-selection bias [Taylor and Tibshirani (2015)](https://doi.org/10.1073/pnas.1507583112)
 ]
@@ -623,6 +626,7 @@ knitr::include_graphics('images/tbanalysis.png')
 | Pre-pregnancy      | 1.85                   | 1.37-2.51                    |
 
 - Conclusion: **not associated**
+
 - More discussion: [Amrhein, Trafimow, Greenland, 2019](https://doi.org/10.1080/00031305.2018.1543137) The American Statistician
 
 ---
@@ -644,7 +648,9 @@ knitr::include_graphics('images/ae.png')
 ```
 
 - Autoencoder-based hdPS is useful.
+
 - Shallow learning (less layers) had better MSE.
+
 - .red[Did not perform better than LASSO].
 
 ---
@@ -663,6 +669,8 @@ Targetted learning approach
 | 29 confounders | 69.67|
 | 29 confounders + 400 ECs | .red[390.77]|
 
+- better covariate balance vs. overfitting
+  - Varying number of covariates selected [Tazare et al. 2022](https://doi.org/10.1002/pds.5412)
 
 [Haris and Platt (2021)](https://doi.org/10.48550/arXiv.2112.08495) arxiv
 
@@ -679,7 +687,9 @@ Targetted learning approach
 SL, TMLE, AIPW and usefulness of sample splitting
 
 - ML based .red[singly robust methods] should be avoided
+
 - Use .red[sample splitting]
+
 - .red[rich SL library] of flexible regression as well as higher order interactions
 
 ---
