@@ -1,0 +1,2 @@
+require(xaringanBuilder)
+build_pdf("C:\\Users\\Ehsan\\Documents\\GitHub\\hdps-slides\\index.Rmd")
